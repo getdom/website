@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Design Repository
+
+A minimalistic web application for curating and organizing inspiring website designs. Automatically captures full-page screenshots and extracts metadata from any website you add.
+
+## Features
+
+- 🎨 **Beautiful Grid Layout** - Clean, minimalistic design inspired by modern portfolio sites
+- 📸 **Automatic Screenshots** - Full-page screenshots captured automatically using Puppeteer
+- 🗄️ **Local Database** - All data stored locally in SQLite (better-sqlite3)
+- 🏷️ **Smart Categorization** - Automatically infers categories from website metadata
+- 🔍 **Metadata Extraction** - Pulls title, description, and other info from websites
+- ✨ **Modern UI** - Built with Next.js 15, React 19, and Tailwind CSS
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Click the **"Add Website"** button
+2. Enter any website URL (e.g., `https://example.com`)
+3. Wait a few seconds while the app:
+   - Captures a full-page screenshot
+   - Extracts the title, description, and metadata
+   - Automatically categorizes the website
+   - Saves everything to the local database
+4. View your curated design collection in the grid layout
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework**: Next.js 15 (App Router)
+- **UI**: React 19, Tailwind CSS 4
+- **Database**: better-sqlite3 (local SQLite)
+- **Screenshots**: Puppeteer
+- **Metadata**: Cheerio (HTML parsing)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+├── app/
+│   ├── api/
+│   │   └── websites/       # API routes for CRUD operations
+│   ├── components/         # React components
+│   └── page.tsx           # Main page
+├── lib/
+│   ├── db.ts              # Database functions
+│   └── screenshot.ts      # Screenshot & metadata extraction
+├── data/                  # SQLite database (auto-created)
+└── public/screenshots/    # Stored screenshots (auto-created)
+```
 
-## Deploy on Vercel
+## API Endpoints
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `GET /api/websites` - Fetch all websites
+- `POST /api/websites` - Add a new website (requires `url` in body)
+- `DELETE /api/websites/[id]` - Delete a website by ID
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Local Storage
+
+All data is stored locally:
+- **Database**: `data/websites.db`
+- **Screenshots**: `public/screenshots/`
+
+These directories are git-ignored by default.
+
+## Built With
+
+This is a [Next.js](https://nextjs.org) project using the latest App Router features.
